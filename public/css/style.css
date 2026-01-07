@@ -167,6 +167,39 @@ input {
     color: var(--text-dim);
 }
 
+/* Persistent Home/Audio Controls */
+#controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    /* Above most things, below modal if needed, but modals are usually 100 */
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+#controls button {
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#controls button:hover {
+    transform: scale(1.1);
+}
+
+.modal-content li {
+    margin-bottom: 0.5rem;
+}
+
 .modal-content li {
     margin-bottom: 0.5rem;
 }
@@ -187,7 +220,6 @@ input {
 .hud-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .level-info {

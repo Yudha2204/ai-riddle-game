@@ -39,7 +39,9 @@ export class GameManager {
             chatHistory: document.getElementById('chat-history'),
             input: document.getElementById('player-input'),
             sendBtn: document.getElementById('send-btn'),
-            backBtn: document.getElementById('back-home-btn')
+            homeBtn: document.getElementById('controls-home-btn'),
+            muteBtn: document.getElementById('controls-mute-btn'),
+            unmuteBtn: document.getElementById('controls-unmute-btn')
         };
     }
 
@@ -139,7 +141,13 @@ export class GameManager {
             if (e.key === 'Enter') this.handleChatSubmit();
         };
 
-        this.ui.backBtn.onclick = () => this.switchScene('home');
+        // Persistent Controls
+        this.ui.homeBtn.onclick = () => this.switchScene('home');
+        this.ui.muteBtn.onclick = () => this.toggleAudio(false);
+        this.ui.unmuteBtn.onclick = () => this.toggleAudio(true);
+
+        // Initial State: Show Mute (assuming music on), hide Unmute
+        this.ui.unmuteBtn.classList.add('hidden');
     }
 
     onWindowResize() {
@@ -172,6 +180,13 @@ export class GameManager {
 
         if (this.currentScene) {
             this.currentScene.init();
+        }
+
+        // Handle Controls Visibility
+        if (sceneName === 'home') {
+            this.ui.homeBtn.classList.add('hidden');
+        } else {
+            this.ui.homeBtn.classList.remove('hidden');
         }
     }
 
@@ -222,6 +237,18 @@ export class GameManager {
 
     showAbout() {
         this.ui.aboutModal.classList.remove('hidden');
+    }
+
+    toggleAudio(play) {
+        if (play) {
+            this.musicSound.play();
+            this.ui.muteBtn.classList.remove('hidden');
+            this.ui.unmuteBtn.classList.add('hidden');
+        } else {
+            this.musicSound.pause();
+            this.ui.muteBtn.classList.add('hidden');
+            this.ui.unmuteBtn.classList.remove('hidden');
+        }
     }
 
     startGameWithDifficulty(difficultyStr) {
