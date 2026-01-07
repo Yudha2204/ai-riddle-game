@@ -1,0 +1,168 @@
+[
+    {
+        "order": 1,
+        "initialHint": "Aku bulat, berwarna cerah, dan kaya akan vitamin C.",
+        "image": "Jeruk.png",
+        "answer": "Jeruk",
+        "hints": [
+            "Rasanya bisa manis or sedikit asam.",
+            "Sering dijadikan jus.",
+            "Kulitnya berwarna oranye."
+        ]
+    },
+    {
+        "order": 2,
+        "initialHint": "Aku bulat kecil, tumbuh bergerombol, dan berwarna ungu atau hijau.",
+        "answer": "Anggur",
+        "image": "Grape.png",
+        "hints": [
+            "Aku adalah buah yang merambat.",
+            "Sering diolah menjadi minuman atau kismis.",
+            "Rasanya manis and menyegarkan."
+        ]
+    },
+    {
+        "order": 3,
+        "initialHint": "Aku berwarna kuning, melengkung, dan monyet suka memakanku.",
+        "answer": "Pisang",
+        "image": "Banana.png",
+        "hints": [
+            "Kulitku licin jika diinjak.",
+            "Daging buahku lembut dan putih.",
+            "Aku tumbuh dalam tandan."
+        ]
+    },
+    {
+        "order": 4,
+        "initialHint": "Aku besar, bulat, berwarna hijau di luar dan merah di dalam.",
+        "answer": "Semangka",
+        "image": "Watermelon.png",
+        "hints": [
+            "Aku memiliki banyak biji kecil berwarna hitam.",
+            "Rasanya sangat segar dan banyak airnya.",
+            "Sering dimakan saat cuaca panas."
+        ]
+    },
+    {
+        "order": 5,
+        "initialHint": "Aku merah, renyah, dan konon jatuh menimpa Isaac Newton.",
+        "answer": "Apel",
+        "image": "Apple.png",
+        "hints": [
+            "Kulitku bisa dimakan.",
+            "Aku sangat populer dalam cerita putri salju.",
+            "Menjauhkan dokter jika dimakan setiap hari."
+        ]
+    },
+    {
+        "order": 6,
+        "initialHint": "Aku berisi air, tetapi jika dipecahkan aku mengeluarkan kehidupan.",
+        "answer": "Telur",
+        "image": "Egg.png",
+        "hints": [
+            "Kulitku tipis namun cukup kuat.",
+            "Aku sering diolah menjadi makanan.",
+            "Di dalamku kadang terdapat sesuatu yang hidup."
+        ]
+    },
+    {
+        "order": 7,
+        "initialHint": "Aku bisa terbang tanpa sayap dan menangis tanpa mata.",
+        "answer": "Awan",
+        "image": "Cloud.png",
+        "hints": [
+            "Warnaku bisa putih, abu-abu, atau gelap.",
+            "Aku berubah bentuk tergantung cuaca.",
+            "Aku bisa membawa hujan."
+        ]
+    },
+    {
+        "order": 8,
+        "initialHint": "Aku membawa banyak informasi ke seluruh dunia, namun aku tidak pernah bergerak.",
+        "answer": "Internet",
+        "image": "Internet.png",
+        "hints": [
+            "Kamu menggunakanku setiap hari.",
+            "Aku dapat menghubungkanmu dengan siapa pun.",
+            "Aku tidak memiliki bentuk fisik."
+        ]
+    },
+    {
+        "order": 9,
+        "initialHint": "Aku bersuara keras ketika dipukul, tapi aku kosong di dalam.",
+        "answer": "Drum",
+        "image": "Drum.png",
+        "hints": [
+            "Aku termasuk alat musik.",
+            "Aku dimainkan dengan dipukul.",
+            "Suara nyaringku berasal dari ruang di dalamku."
+        ]
+    },
+    {
+        "order": 10,
+        "initialHint": "Aku hidup di air, tetapi aku mati jika terlalu lama di darat.",
+        "answer": "Ikan",
+        "image": "Fish.png",
+        "hints": [
+            "Aku punya sirip.",
+            "Aku bernapas dengan insang.",
+            "Tubuhku licin dan gesit."
+        ]
+    },
+    {
+        "order": 11,
+        "initialHint": "Aku sangat besar, tetapi sebagian besar tubuhku tidak terlihat.",
+        "answer": "Gunung es",
+        "image": "Iceberg.png",
+        "hints": [
+            "Aku terbentuk dari air yang membeku.",
+            "Aku mengapung di laut yang sangat dingin.",
+            "Hanya sedikit bagianku yang tampak di permukaan.",
+            "Aku menyebabkan titanic tenggelam."
+        ]
+    },
+    {
+        "order": 12,
+        "initialHint": "Aku bisa mengikat dua hati tanpa tali ataupun rantai.",
+        "answer": "Janji",
+        "image": "Promise.png",
+        "hints": [
+            "Aku tidak memiliki bentuk fisik.",
+            "Aku dapat menghubungkan atau menghancurkan hubungan.",
+            "Aku sering diucapkan dengan sungguh-sungguh."
+        ]
+    },
+    {
+        "order": 13,
+        "initialHint": "Aku ada di mana-mana tetapi jarang disadari, aku bisa membuatmu panas atau dingin.",
+        "answer": "Udara",
+        "image": "Air.png",
+        "hints": [
+            "Kamu membutuhkanku untuk hidup.",
+            "Aku tidak bisa dilihat dengan mata telanjang.",
+            "Kecepatanku dapat berubah menjadi angin."
+        ]
+    },
+    {
+        "order": 14,
+        "initialHint": "Aku berjalan tanpa kaki dan berbicara tanpa suara.",
+        "answer": "Waktu",
+        "image": "Time.png",
+        "hints": [
+            "Aku tidak pernah berhenti.",
+            "Aku bergerak maju tanpa bisa kembali.",
+            "Aku dapat mengubah banyak hal."
+        ]
+    },
+    {
+        "order": 15,
+        "initialHint": "Aku muncul tanpa diminta dan hilang tanpa peringatan, tetapi aku bisa menunjukkan siapa dirimu sebenarnya.",
+        "answer": "Bayangan",
+        "image": "Shadow.png",
+        "hints": [
+            "Aku tidak bisa muncul di kegelapan.",
+            "Aku mengikuti gerakanmu.",
+            "Aku berubah bentuk tergantung cahaya."
+        ]
+    }
+]

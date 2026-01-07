@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Riddle Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+
+    <!-- Import Map for Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay -->
+    <div id="ui-layer">
+
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loader"></div>
+            <p>Loading Experience...</p>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Cara Bermain</h2>
+                <p>Selamat datang di AI Riddle Game!</p>
+                <ul>
+                    <li><strong>Objektif:</strong> Tebak objek yang tertera di layar.</li>
+                    <li><strong>Interaksi:</strong> Tanyakan pertanyaan atau tebak jawaban di chat.</li>
+                    <li><strong>Menang:</strong> Menjawab dengan benar untuk maju ke level selanjutnya.</li>
+                    <li>Terdapat 15 level di game ini.</li>
+                </ul>
+                <button id="close-help-btn" class="primary-btn">Close</button>
+            </div>
+        </div>
+
+        <!-- About Modal -->
+        <div id="about-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>About Us</h2>
+                <p><strong>AI Riddle Game</strong></p>
+                <p>Sebuah game teka-teki interaktif yang ditenagai oleh AI.</p>
+                <br>
+                <p>Tech Stack:</p>
+                <p>Three.js, Node.js, Express.js, OpenAI API, HTML, CSS, JavaScript</p>
+                <br>
+                <p>Created With ❤️ by:</p>
+                <p><strong>M. Yudha Putra (2521031)</strong></p>
+                <p><strong>Chandra Alif Mochamad Ramdhani (2321001)</strong></p>
+                <p><strong>Zulkifli (2321037)</strong></p>
+                <br>
+                <p>Version 0.9.9</p>
+                <button id="close-about-btn" class="primary-btn" style="margin-top: 20px;">Close</button>
+            </div>
+        </div>
+
+        <!-- API Loading Modal -->
+        <div id="api-loading-modal" class="modal hidden">
+            <div class="modal-content" style="display: flex; flex-direction: column; align-items: center;">
+                <img id="api-loading-image" src="image/Think.png" alt="Thinking..."
+                    style="width: 150px; height: auto; margin-bottom: 20px;">
+                <p id="api-loading-text" style="font-size: 1.2rem; color: var(--primary-color);">sebentar aku berpikir
+                </p>
+                <button id="api-loading-close-btn" style="margin-top: 20px;" class="primary-btn">Okay</button>
+            </div>
+        </div>
+
+        <!-- Game HUD (Chat & Info) -->
+        <div id="game-hud" class="screen hidden">
+            <div class="hud-header">
+                <div class="level-info">
+                    <span id="level-display">Level 1</span>
+                </div>
+                <button id="back-home-btn" class="icon-btn">🏠</button>
+            </div>
+
+            <div class="riddle-display">
+                <img id="riddle-image-placeholder" src="image/Ask.png" alt="Riddle Image">
+                <p id="riddle-hint-text">"I am round and..."</p>
+            </div>
+
+            <div class="chat-container">
+                <div id="chat-history" class="chat-history">
+                    <!-- Messages go here -->
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="player-input" placeholder="Tanya atau tebak jawaban..." autocomplete="off">
+                    <button id="send-btn"></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ES Module Entry Point -->
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
