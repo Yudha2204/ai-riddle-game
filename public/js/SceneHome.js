@@ -7,7 +7,7 @@ export class SceneHome {
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
         this.interactiveObjects = [];
-        this.textureLoader = new THREE.TextureLoader();
+        this.textureLoader = new THREE.TextureLoader(this.game.loadingManager);
 
         // Bind events
         this.onMouseDown = this.onMouseDown.bind(this);

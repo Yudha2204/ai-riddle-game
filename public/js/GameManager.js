@@ -34,7 +34,8 @@ export class GameManager {
             closeAboutBtn: document.getElementById('close-about-btn'),
             hud: document.getElementById('game-hud'),
             levelDisplay: document.getElementById('level-display'),
-            riddleImage: document.getElementById('riddle-image-placeholder'),
+            riddleImage: document.getElementById('riddle-image-container'),
+            riddleLoader: document.getElementById('riddle-loader'),
             hintText: document.getElementById('riddle-hint-text'),
             chatHistory: document.getElementById('chat-history'),
             input: document.getElementById('player-input'),
@@ -43,6 +44,8 @@ export class GameManager {
             muteBtn: document.getElementById('controls-mute-btn'),
             unmuteBtn: document.getElementById('controls-unmute-btn')
         };
+
+        this.loadingManager = new THREE.LoadingManager();
     }
 
     async init() {
@@ -60,8 +63,8 @@ export class GameManager {
         this.camera.add(this.listener);
 
         this.hoverSound = new THREE.Audio(this.listener);
-        const audioLoader = new THREE.AudioLoader();
-        audioLoader.load('./sounds/hover.mp3', (buffer) => {
+        const audioLoader = new THREE.AudioLoader(this.loadingManager);
+        audioLoader.load('sounds/hover.mp3', (buffer) => {
             if (this.hoverSound) {
                 this.hoverSound.setBuffer(buffer);
                 this.hoverSound.setLoop(false);
@@ -70,11 +73,38 @@ export class GameManager {
         });
 
         this.musicSound = new THREE.Audio(this.listener);
-        audioLoader.load('./sounds/music.mp3', (buffer) => {
+        audioLoader.load('sounds/music.mp3', (buffer) => {
             if (this.musicSound) {
                 this.musicSound.setBuffer(buffer);
                 this.musicSound.setLoop(true);
-                this.musicSound.setVolume(0.1);
+                this.musicSound.setVolume(0.8);
+            }
+        });
+
+        this.almostSound = new THREE.Audio(this.listener);
+        audioLoader.load('sounds/almost.mp3', (buffer) => {
+            if (this.almostSound) {
+                this.almostSound.setBuffer(buffer);
+                this.almostSound.setLoop(false);
+                this.almostSound.setVolume(1);
+            }
+        });
+
+        this.correctSound = new THREE.Audio(this.listener);
+        audioLoader.load('sounds/correct.mp3', (buffer) => {
+            if (this.correctSound) {
+                this.correctSound.setBuffer(buffer);
+                this.correctSound.setLoop(false);
+                this.correctSound.setVolume(1);
+            }
+        });
+
+        this.wrongSound = new THREE.Audio(this.listener);
+        audioLoader.load('sounds/wrong.mp3', (buffer) => {
+            if (this.wrongSound) {
+                this.wrongSound.setBuffer(buffer);
+                this.wrongSound.setLoop(false);
+                this.wrongSound.setVolume(1);
             }
         });
 
@@ -99,6 +129,12 @@ export class GameManager {
         // Handle Resize
         window.addEventListener('resize', () => this.onWindowResize());
 
+        // Texture Reuse / Preloader
+        this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+
+        // Preload all assets (ensure global loading waits for these)
+        this.preloadAssets();
+
         // Event Listeners
         this.setupUIEvents();
         this.setupButtonHoverSounds();
@@ -106,15 +142,17 @@ export class GameManager {
         // Load Data
         await this.loadRiddles();
 
+        // Global Loading Manager
+        this.loadingManager.onLoad = () => {
+            this.ui.loading.classList.remove('active');
+            this.ui.loading.classList.add('hidden');
+        };
+
         // Start Home Scene
         this.switchScene('home');
 
         // Animation Loop
         this.animate();
-
-        // Hide Loading
-        this.ui.loading.classList.remove('active');
-        this.ui.loading.classList.add('hidden');
     }
 
     async loadRiddles() {
@@ -148,6 +186,41 @@ export class GameManager {
 
         // Initial State: Show Mute (assuming music on), hide Unmute
         this.ui.unmuteBtn.classList.add('hidden');
+    }
+
+    preloadAssets() {
+        // List of all static assets to preload
+        const assets = [
+            // Scene Textures
+            'image/bg.jpg',
+            'image/Play.png',
+            'image/Help.png',
+            'image/About.png',
+            'image/Easy.png',
+            'image/Medium.png',
+            'image/Hard.png',
+
+            // UI Icons (DOM elements)
+            'image/Home.png',
+            'image/Mute.png',
+            'image/Unmute.png',
+            'image/Think.png',
+            'image/Ahaa.png',
+            'image/Wrong.png',
+            'image/Ask.png',
+            'image/Wrong.png',
+
+            // Audio
+            'sounds/hover.mp3',
+            'sounds/music.mp3',
+            'sounds/almost.mp3',
+            'sounds/correct.mp3',
+            'sounds/wrong.mp3'
+        ];
+
+        assets.forEach(path => {
+            this.textureLoader.load(path);
+        });
     }
 
     onWindowResize() {
@@ -220,6 +293,33 @@ export class GameManager {
         }
     }
 
+    playAlmostSound() {
+        if (this.almostSound && this.almostSound.buffer) {
+            if (this.listener.context.state === 'running') {
+                if (this.almostSound.isPlaying) this.almostSound.stop();
+                this.almostSound.play();
+            }
+        }
+    }
+
+    playCorrectSound() {
+        if (this.correctSound && this.correctSound.buffer) {
+            if (this.listener.context.state === 'running') {
+                if (this.correctSound.isPlaying) this.correctSound.stop();
+                this.correctSound.play();
+            }
+        }
+    }
+
+    playWrongSound() {
+        if (this.wrongSound && this.wrongSound.buffer) {
+            if (this.listener.context.state === 'running') {
+                if (this.wrongSound.isPlaying) this.wrongSound.stop();
+                this.wrongSound.play();
+            }
+        }
+    }
+
     setupButtonHoverSounds() {
         const buttons = document.querySelectorAll('button');
         buttons.forEach(btn => {
@@ -271,9 +371,10 @@ export class GameManager {
         this.ui.chatHistory.innerHTML = '';
         this.ui.levelDisplay.textContent = `(${this.difficultyMode}) Level ${level}`;
         this.ui.hintText.textContent = `"${riddle.initialHint}"`;
-        if (riddle.image) {
-            this.ui.riddleImage.src = `./image/riddle/${riddle.image}`;
-        }
+        // if (riddle.image) {
+        //     this.ui.riddleImage.src = `./image/riddle/${riddle.image}`;
+        // }
+        // Moved src assignment to after loading logic
 
         // Visibility Logic based on Difficulty Mode
         // Easy: Image + Text
@@ -287,6 +388,27 @@ export class GameManager {
             this.ui.hintText.classList.add('hidden');
         } else if (this.difficultyMode === 'hard') {
             this.ui.riddleImage.classList.add('hidden');
+            this.ui.riddleLoader.classList.add('hidden'); // Ensure loader is hidden in hard mode
+        }
+
+        // Handle Image Loading if visible
+        if (!this.ui.riddleImage.classList.contains('hidden') && riddle.image) {
+            this.ui.riddleLoader.classList.remove('hidden');
+            this.ui.riddleImage.style.opacity = '0'; // Hide image but keep layout
+
+            this.ui.riddleImage.onload = () => {
+                this.ui.riddleLoader.classList.add('hidden');
+                this.ui.riddleImage.style.opacity = '1';
+            };
+
+            this.ui.riddleImage.onerror = () => {
+                this.ui.riddleLoader.classList.add('hidden');
+                this.ui.riddleImage.style.opacity = '1';
+            };
+
+            this.ui.riddleImage.src = `./image/riddle/${riddle.image}`;
+        } else {
+            this.ui.riddleLoader.classList.add('hidden');
         }
 
         this.addChatMessage('system', `Selamat datang di Level ${level}! Tebak apakah aku?`);
@@ -325,6 +447,16 @@ export class GameManager {
             // Switch to Ahaa.png
             this.ui.apiLoadingImage.src = result.type === 'answer_check' && result.result === 'SALAH' ? './image/Wrong.png' : './image/Ahaa.png';
             this.ui.apiLoadingText.textContent = result.message;
+
+            if (result.type === 'answer_check') {
+                if (result.result === 'HAMPIR') {
+                    this.playAlmostSound();
+                } else if (result.result === 'BENAR') {
+                    this.playCorrectSound();
+                } else if (result.result === 'SALAH') {
+                    this.playWrongSound();
+                }
+            }
 
             this.ui.apiLoadingCloseBtn.classList.remove('hidden');
 

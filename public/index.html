@@ -98,7 +98,14 @@
             </div>
 
             <div class="riddle-display">
-                <img id="riddle-image-placeholder" src="image/Ask.png" alt="Riddle Image">
+                <div id="riddle-image-container"
+                    style="position: relative; width: 150px; height: 150px; margin: 0 auto 10px;">
+                    <div id="riddle-loader" class="loader hidden"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5);">
+                    </div>
+                    <img id="riddle-image-placeholder" src="image/Ask.png" alt="Riddle Image"
+                        style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
                 <p id="riddle-hint-text">"I am round and..."</p>
             </div>
 

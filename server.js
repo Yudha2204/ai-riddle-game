@@ -111,14 +111,14 @@ Jawablah SELALU dalam JSON murni, tanpa penjelasan tambahan, tanpa teks sebelum 
 `;
 
 // Helper panggil OpenRouter
-async function callOpenRouter(messages, retry = 1) {
+async function callOpenRouter(messages, retry = 1, model = DEFAULT_MODEL) {
     try {
         if (!OPENROUTER_API_KEY) {
             throw new Error("OPENROUTER_API_KEY belum di-set di .env");
         }
 
         const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-            model: DEFAULT_MODEL,
+            model,
             messages,
             stream: false
         },
@@ -159,14 +159,14 @@ async function callOpenRouter(messages, retry = 1) {
 }
 
 // Helper panggil HuggingFace
-async function callHuggingFaceRouter(messages, retry = 1) {
+async function callHuggingFaceRouter(messages, retry = 1, model = DEFAULT_MODEL_HG) {
     try {
         if (!HUGGINGFACE_API_KEY) {
             throw new Error("HUGGINGFACE_API_KEY belum di-set di .env");
         }
 
         const response = await axios.post("https://router.huggingface.co/v1/chat/completions", {
-            model: DEFAULT_MODEL_HG,
+            model,
             messages,
             stream: false
         },
@@ -333,7 +333,7 @@ app.post("/api/riddle/interact", async (req, res) => {
                 ok: false,
                 type: "other",
                 result: null,
-                message: "Penjaga teka-teki sedang kewalahan. Coba lagi beberapa saat."
+                message: "Aku sedang kewalahan. Coba lagi beberapa saat."
             });
         }
 

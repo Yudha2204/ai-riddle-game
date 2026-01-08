@@ -7,7 +7,7 @@ export class SceneDifficulty {
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
         this.interactiveObjects = [];
-        this.textureLoader = new THREE.TextureLoader();
+        this.textureLoader = new THREE.TextureLoader(this.game.loadingManager);
 
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);

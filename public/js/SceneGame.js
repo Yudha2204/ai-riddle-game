@@ -4,7 +4,7 @@ export class SceneGame {
     constructor(game) {
         this.game = game;
         this.scene = new THREE.Scene();
-        this.textureLoader = new THREE.TextureLoader();
+        this.textureLoader = new THREE.TextureLoader(this.game.loadingManager);
     }
 
     init() {
